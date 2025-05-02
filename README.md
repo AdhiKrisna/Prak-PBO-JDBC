@@ -21,7 +21,7 @@ Clone atau buka folder project ini di **VS Code** atau **NetBeans** sesuai prefe
 ### 3. Import JAR ke Proyek
 
 #### 📘 Jika Menggunakan VS Code:
-- Buka tab **JAVA PROJECTS** di sidebar kiri.
+- Buka tab **JAVA PROJECTS** di sidebar.
 - Di bagian **Referenced Libraries**, klik ikon ➕.
 - Pilih file `mysql-connector-j-8.3.0.jar` yang telah kamu download.
 - Setelah berhasil, library MySQL akan muncul di daftar.
