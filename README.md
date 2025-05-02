@@ -40,7 +40,7 @@ Sebelum menjalankan project, kamu **wajib import database-nya** terlebih dahulu:
 - Setelah berhasil, library MySQL akan muncul di daftar.
 
 📷 Contoh:
-![Import JAR VS Code](screenshots/import_jar_vscode.png)
+![Import JAR VS Code](screenshots/vscode.png)
 
 ---
 
@@ -50,7 +50,7 @@ Sebelum menjalankan project, kamu **wajib import database-nya** terlebih dahulu:
 - Arahkan ke file `mysql-connector-j-8.3.0.jar` dan klik Open.
 
 📷 Contoh:
-![Import JAR NetBeans](screenshots/import_jar_netbeans.png)
+![Import JAR NetBeans](screenshots/netbeans.png)
 
 ---
 
