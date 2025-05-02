@@ -27,7 +27,7 @@ Clone atau buka folder project ini di **VS Code** atau **NetBeans** sesuai prefe
 - Setelah berhasil, library MySQL akan muncul di daftar.
 
 📷 Contoh (VS Code):
-![Import JAR VS Code](./assets/import-jar-vscode.png)
+![Import JAR di VS Code](screenshot/vscode.png)
 
 ---
 
@@ -38,7 +38,7 @@ Clone atau buka folder project ini di **VS Code** atau **NetBeans** sesuai prefe
 - Klik Open untuk menambahkannya ke proyek.
 
 📷 Contoh (NetBeans):
-![Import JAR NetBeans](./assets/import-jar-netbeans.png)
+![Import JAR di NetBeans](screenshot/netbeans.png)
 
 ---
 
