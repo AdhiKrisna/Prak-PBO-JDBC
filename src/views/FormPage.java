@@ -2,6 +2,8 @@ package views;
 
 import javax.swing.*;
 
+import connector.Connector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.*;
@@ -17,6 +19,7 @@ public class FormPage extends JFrame implements ActionListener {
     JRadioButton radioLaki, radioPerempuan;
     JComboBox<String> comboAgama = new JComboBox<>(namaAgama);
     JCheckBox checkWeb, checkMobile, checkGame, checkUIUX, checkDS, checkAI;
+    Connector conn = new Connector();
 
     private void initComponents() {
         setTitle("Form Page");
@@ -170,6 +173,9 @@ public class FormPage extends JFrame implements ActionListener {
             if (response == JOptionPane.YES_OPTION) {
                 new ResultPage(nama, umur, agama, gender, skill);
                 // this.dispose();
+                // simpan data ke database
+                conn.insertData(nama, umur, agama, gender, skillStr);
+
             } else {
                 JOptionPane.getRootFrame().dispose();
             }

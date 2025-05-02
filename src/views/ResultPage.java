@@ -18,7 +18,7 @@ public class ResultPage extends JFrame  {
 
         // Label
         labelNama = new JLabel("Nama: " + nama);
-        labelUmur = new JLabel("Umur: " + umur);
+        labelUmur = new JLabel("Umur: " + umur);    
         labelAgama = new JLabel("Agama: " + agama);
         labelGender = new JLabel("Gender: " + gender);
         labelSkill = new JLabel("Skill: " + String.join(", ", skillList));
@@ -46,7 +46,7 @@ public class ResultPage extends JFrame  {
         setLayoutPosition();
     }
 
-    public void setLayoutPosition() {
+    private void setLayoutPosition() {
         labelNama.setBounds(20, 20, 200, 20);
         labelUmur.setBounds(20, 50, 200, 20);
         labelAgama.setBounds(20, 80, 200, 20);
