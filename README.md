@@ -18,37 +18,45 @@ Clone atau buka folder project ini di **VS Code** atau **NetBeans** sesuai prefe
 
 ---
 
-### 3. Import JAR ke Proyek
+### 3. Import Database SQL
+Sebelum menjalankan project, kamu **wajib import database-nya** terlebih dahulu:
+
+- Buka **phpMyAdmin**
+- Buat database baru dengan nama: `biodata_db`
+- Import file SQL berikut:  
+  📂 `database/biodata_db.sql`
+
+📌 Lokasi file: `database/biodata_db.sql`  
+
+---
+
+### 4. Import JAR ke Proyek
 
 #### 📘 Jika Menggunakan VS Code:
-- Buka tab **JAVA PROJECTS** di sidebar kiri.
+- Buka tab **JAVA PROJECTS** di sidebar.
 - Di bagian **Referenced Libraries**, klik ikon ➕.
 - Pilih file `mysql-connector-j-8.3.0.jar` yang telah kamu download.
 - Setelah berhasil, library MySQL akan muncul di daftar.
 
-📷 Contoh (VS Code):
-![Import JAR di VS Code](screenshot/vscode.png)
+📷 Contoh:
+![Import JAR VS Code](screenshots/vscode.png)
 
 ---
 
 #### ☕ Jika Menggunakan NetBeans:
 - Klik kanan pada folder **Libraries** dalam proyek.
 - Pilih `Add JAR/Folder...`
-- Arahkan ke lokasi file `mysql-connector-j-8.3.0.jar`.
-- Klik Open untuk menambahkannya ke proyek.
+- Arahkan ke file `mysql-connector-j-8.3.0.jar` dan klik Open.
 
-📷 Contoh (NetBeans):
-![Import JAR di NetBeans](screenshot/netbeans.png)
-
----
-
-### 4. Jalankan Proyek
-Pastikan:
-- Database MySQL aktif.
-- Konfigurasi koneksi di file Java sudah sesuai (hostname, port, user, password, dan nama database).
-
-Jalankan `Main.java` untuk memulai aplikasi.
+📷 Contoh:
+![Import JAR NetBeans](screenshots/netbeans.png)
 
 ---
 
-## 📁 Struktur Project
+### 5. Jalankan Proyek
+- Pastikan database MySQL sedang aktif.
+- Pastikan konfigurasi koneksi di `Main.java` sudah sesuai (host, user, password, nama DB).
+- Jalankan `Main.java`.
+
+---
+
