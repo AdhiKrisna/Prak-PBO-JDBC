@@ -27,7 +27,6 @@ Sebelum menjalankan project, kamu **wajib import database-nya** terlebih dahulu:
   📂 `database/biodata_db.sql`
 
 📌 Lokasi file: `database/biodata_db.sql`  
-📷 Contoh import di phpMyAdmin (opsional bisa tambahkan screenshot sendiri)
 
 ---
 
