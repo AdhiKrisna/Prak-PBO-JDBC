@@ -50,5 +50,3 @@ Pastikan:
 Jalankan `Main.java` untuk memulai aplikasi.
 
 ---
-
-## 📁 Struktur Project
