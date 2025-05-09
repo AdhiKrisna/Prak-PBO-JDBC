@@ -1,33 +1,70 @@
 package views;
 
 import javax.swing.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import connector.Connector;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.*;
+public class EditPage extends JFrame implements ActionListener {
+    int id;
+    Connector conn = new Connector();
 
-public class FormPage extends JFrame implements ActionListener {
-
-    JButton tombolSubmit;
-    JButton tombolClear;
     JLabel labelNama, labelUmur, labelAgama, labelGender, labelSkill;
     JTextField fieldNama, fieldUmur;
     String[] namaAgama = { "Islam", "Kristen", "Katolik", "Hindu", "Budha", "Konghucu" };
-    ButtonGroup groupGender;
-    JRadioButton radioLaki, radioPerempuan;
     JComboBox<String> comboAgama = new JComboBox<>(namaAgama);
+    JRadioButton radioLaki, radioPerempuan;
+    ButtonGroup groupGender;
     JCheckBox checkWeb, checkMobile, checkGame, checkUIUX, checkDS, checkAI;
-    Connector conn = new Connector();
+    JButton tombolUpdate;
+
+    String selectedGender;
+    String selectedSkills;
+    private Runnable onUpdateCallback;
+
+    public EditPage(int id, String nama, int umur, String agama, String gender, String skills,
+            Runnable onUpdateCallback) {
+        this.id = id;
+        this.selectedGender = gender;
+        this.selectedSkills = skills;
+        this.onUpdateCallback = onUpdateCallback;
+
+        initComponents();
+        setLayoutPosition();
+
+        fieldNama.setText(nama);
+        fieldUmur.setText(String.valueOf(umur));
+        comboAgama.setSelectedItem(agama);
+
+        if (gender.equalsIgnoreCase("Laki-laki")) {
+            radioLaki.setSelected(true);
+        } else if (gender.equalsIgnoreCase("Perempuan")) {
+            radioPerempuan.setSelected(true);
+        }
+
+        if (skills.contains("Web Developer"))
+            checkWeb.setSelected(true);
+        if (skills.contains("Mobile Developer"))
+            checkMobile.setSelected(true);
+        if (skills.contains("Game Developer"))
+            checkGame.setSelected(true);
+        if (skills.contains("UI/UX Designer"))
+            checkUIUX.setSelected(true);
+        if (skills.contains("Data Scientist"))
+            checkDS.setSelected(true);
+        if (skills.contains("AI Engineer"))
+            checkAI.setSelected(true);
+    }
 
     private void initComponents() {
-        setTitle("Form Page");
+        setTitle("Edit Data");
         setSize(700, 350);
         setVisible(true);
         setLocationRelativeTo(null);
         setLayout(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         // Label
         labelNama = new JLabel("Nama");
@@ -55,10 +92,11 @@ public class FormPage extends JFrame implements ActionListener {
         checkDS = new JCheckBox("Data Scientist");
         checkAI = new JCheckBox("AI Engineer");
 
-        // submit button
-        tombolSubmit = new JButton("Submit");
-        tombolClear = new JButton("Clear");
+        // button update
+        tombolUpdate = new JButton("Update");
+        tombolUpdate.addActionListener(this);
 
+        // Add components
         add(labelNama);
         add(labelUmur);
         add(labelAgama);
@@ -75,9 +113,7 @@ public class FormPage extends JFrame implements ActionListener {
         add(checkDS);
         add(checkAI);
         add(comboAgama);
-        add(tombolSubmit);
-        add(tombolClear);
-
+        add(tombolUpdate);
     }
 
     private void setLayoutPosition() {
@@ -99,60 +135,42 @@ public class FormPage extends JFrame implements ActionListener {
         checkAI.setBounds(450, 160, 150, 20);
         comboAgama.setBounds(150, 70, 150, 20);
 
-        tombolSubmit.setBounds(150, 200, 100, 30);
-        tombolClear.setBounds(260, 200, 100, 30);
-        tombolSubmit.addActionListener(this);
-        tombolClear.addActionListener(this);
+        tombolUpdate.setBounds(150, 200, 100, 30);
     }
 
-    // method untuk menangani event
-    // cara 1
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == tombolSubmit) {
-            submitAction();
-        }
-        else {
-           clearAction();
-        }
-
-    }
-
-    private void submitAction() {
         try {
             String nama = fieldNama.getText().trim();
             int umur = Integer.parseInt(fieldUmur.getText());
             String agama = comboAgama.getSelectedItem().toString();
             String gender = "";
+
             List<String> skill = new ArrayList<>();
-            if (radioLaki.isSelected()) {
+            if (radioLaki.isSelected())
                 gender = "Laki-laki";
-            } else if (radioPerempuan.isSelected()) {
+            else if (radioPerempuan.isSelected())
                 gender = "Perempuan";
-            }
-            // skill
-            if (checkWeb.isSelected()) {
+
+            if (checkWeb.isSelected())
                 skill.add("Web Developer");
-            }
-            if (checkMobile.isSelected()) {
+            if (checkMobile.isSelected())
                 skill.add("Mobile Developer");
-            }
-            if (checkGame.isSelected()) {
+            if (checkGame.isSelected())
                 skill.add("Game Developer");
-            }
-            if (checkUIUX.isSelected()) {
+            if (checkUIUX.isSelected())
                 skill.add("UI/UX Designer");
-            }
-            if (checkDS.isSelected()) {
+            if (checkDS.isSelected())
                 skill.add("Data Scientist");
-            }
-            if (checkAI.isSelected()) {
+            if (checkAI.isSelected())
                 skill.add("AI Engineer");
+
+            if (nama.isEmpty() || fieldUmur.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Tolong isi semua field", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            String skillStr = String.join(", ", skill);
-
-            if (!radioLaki.isSelected() && !radioPerempuan.isSelected()) {
+            if (gender.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Pilih salah satu gender", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -162,57 +180,16 @@ public class FormPage extends JFrame implements ActionListener {
                 return;
             }
 
-            UIManager.put("OptionPane.yesButtonText", "Simpan");
-            UIManager.put("OptionPane.noButtonText", "Batal");
-
-            int response = JOptionPane.showConfirmDialog(this,
-                    "Nama: " + nama + "\nUmur: " + umur + "\nAgama: " + agama + "\nGender: "
-                            + gender + "\nSkill: " + skillStr,
-                    "Konfirmasi Data", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
-
-            if (response == JOptionPane.YES_OPTION) {
-                new ResultPage(nama, umur, agama, gender, skill);
-                // this.dispose();
-                // simpan data ke database
-                conn.insertData(nama, umur, agama, gender, skillStr);
-
-            } else {
-                JOptionPane.getRootFrame().dispose();
+            String skillStr = String.join(", ", skill);
+            conn.updateData(id, nama, umur, agama, gender, skillStr);
+            JOptionPane.showMessageDialog(this, "Data berhasil diperbarui!");
+            if (onUpdateCallback != null) {
+                onUpdateCallback.run(); // kasih sinyal ke ReadPage
             }
+            this.dispose();
 
-        } catch (Exception ex) { // ini akan mengecek smua error yang ada
-            // jika field nama atau umur kosong
-            // jika field umur bukan angka
-
-            // maka dari itu, kita akan mengontrol pesan error untuk nama dan umur jika
-            // field kosong pada sebuah if statement
-            if (fieldNama.getText().isEmpty() || fieldUmur.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Tolong isi semua field", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            // sehingga jika error yang tersisa tinggal field umur bukan angka, maka akan
-            // muncul pesan error
+        } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Tolong isi umur dengan angka", "Error", JOptionPane.ERROR_MESSAGE);
-
         }
     }
-
-    private void clearAction() {
-        fieldNama.setText("");
-        fieldUmur.setText("");
-        groupGender.clearSelection();
-        checkWeb.setSelected(false);
-        checkMobile.setSelected(false);
-        checkGame.setSelected(false);
-        checkUIUX.setSelected(false);
-        checkDS.setSelected(false);
-        checkAI.setSelected(false);
-        comboAgama.setSelectedIndex(0);
-    }
-
-    public FormPage() {
-        initComponents();
-        setLayoutPosition();
-    }
-
 }

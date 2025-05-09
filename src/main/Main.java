@@ -1,11 +1,11 @@
 package main;
 
-import views.FormPage;
+import views.InputPage;
 
 public class Main {
 
     public static void main(String[] args) {
-        new FormPage();
+        new InputPage();
     }
     
 }
