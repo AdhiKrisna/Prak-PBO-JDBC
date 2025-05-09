@@ -22,14 +22,14 @@ public class EditPage extends JFrame implements ActionListener {
 
     String selectedGender;
     String selectedSkills;
-    private Runnable onUpdateCallback;
+    private Runnable refreshTable;
 
     public EditPage(int id, String nama, int umur, String agama, String gender, String skills,
-            Runnable onUpdateCallback) {
+            Runnable refreshTable) {
         this.id = id;
         this.selectedGender = gender;
         this.selectedSkills = skills;
-        this.onUpdateCallback = onUpdateCallback;
+        this.refreshTable = refreshTable;
 
         initComponents();
         setLayoutPosition();
@@ -183,8 +183,8 @@ public class EditPage extends JFrame implements ActionListener {
             String skillStr = String.join(", ", skill);
             conn.updateData(id, nama, umur, agama, gender, skillStr);
             JOptionPane.showMessageDialog(this, "Data berhasil diperbarui!");
-            if (onUpdateCallback != null) {
-                onUpdateCallback.run(); // kasih sinyal ke ReadPage
+            if (refreshTable != null) {
+                refreshTable.run(); // kasih sinyal ke ReadPage
             }
             this.dispose();
 
